@@ -1,13 +1,8 @@
-import {
-  BottomSheetBackdrop,
-  BottomSheetModal,
-  BottomSheetView,
-  useBottomSheetModal,
-} from '@gorhom/bottom-sheet';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Link } from 'expo-router';
-import { useCallback, useMemo, useRef } from 'react';
+import { useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -16,6 +11,7 @@ import {
   View,
 } from 'react-native';
 import Icon from '../../assets/images/wordle-icon.svg';
+import SuscribeModal from '../components/SuscribeModal';
 import ThemedText from '../components/ThemedText';
 import { Colors } from '../constants/Colors';
 
@@ -24,22 +20,22 @@ export default function Index() {
   const backgroundColor = Colors[colorScheme ?? 'light'].background;
   const textColor = Colors[colorScheme ?? 'light'].text;
   const subscribeModalRef = useRef<BottomSheetModal>(null);
-  const snapPoints = useMemo(() => ['85%'], []);
+  // const snapPoints = useMemo(() => ['85%'], []);
 
-  const { dismiss } = useBottomSheetModal();
+  // const { dismiss } = useBottomSheetModal();
 
-  const renderBackdrop = useCallback(
-    (props: any) => (
-      <BottomSheetBackdrop
-        opacity={0.6}
-        appearsOnIndex={1}
-        disappearsOnIndex={-1}
-        {...props}
-        onPress={dismiss}
-      />
-    ),
-    []
-  );
+  // const renderBackdrop = useCallback(
+  //   (props: any) => (
+  //     <BottomSheetBackdrop
+  //       opacity={0.6}
+  //       appearsOnIndex={1}
+  //       disappearsOnIndex={-1}
+  //       {...props}
+  //       onPress={dismiss}
+  //     />
+  //   ),
+  //   []
+  // );
   const handlePresentSuscribeModal = () => {
     subscribeModalRef.current?.present();
 
@@ -52,6 +48,7 @@ export default function Index() {
   // }, []);
   return (
     <View style={[styles.container, { backgroundColor }]}>
+      <SuscribeModal ref={subscribeModalRef}></SuscribeModal>
       {/* <BottomSheetModal snapPoints={['75%', '10%']} ref={subscribeModalRef}>
         <BottomSheetView style={styles.containerSheet}>
           <Text>Awesome 🎉</Text>
@@ -59,7 +56,7 @@ export default function Index() {
         </BottomSheetView>
       </BottomSheetModal> */}
 
-      <BottomSheetModal
+      {/* <BottomSheetModal
         ref={subscribeModalRef}
         snapPoints={snapPoints}
         index={1}
@@ -72,7 +69,7 @@ export default function Index() {
           <Text>Awesome 🎉</Text>
           <Text>Awesome 🎉</Text>
         </BottomSheetView>
-      </BottomSheetModal>
+      </BottomSheetModal> */}
       <View style={styles.header}>
         <Icon width={100} height={70}></Icon>
         <ThemedText style={styles.title}>Wordle</ThemedText>
@@ -169,9 +166,5 @@ const styles = StyleSheet.create({
   footerText: {
     fontSize: 20,
     fontFamily: 'FrankRuhlLibre_500Medium',
-  },
-  containerSheet: {
-    flex: 1,
-    alignItems: 'center',
   },
 });
