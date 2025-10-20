@@ -1,40 +1,56 @@
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Link } from 'expo-router';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
 import Icon from '../../assets/images/wordle-icon.svg';
+import ThemedText from '../components/ThemedText';
+import { Colors } from '../constants/Colors';
 
 export default function Index() {
+  const colorScheme = useColorScheme();
+  const backgroundColor = Colors[colorScheme ?? 'light'].background;
+  const textColor = Colors[colorScheme ?? 'light'].text;
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor }]}>
       <View style={styles.header}>
         <Icon width={100} height={70}></Icon>
-        <Text style={styles.title}>Wordle</Text>
-        <Text style={styles.text}>Get 6 chances to guess a 5-letter word.</Text>
+        <ThemedText style={styles.title}>Wordle</ThemedText>
+        <ThemedText style={styles.text}>
+          Get 6 chances to guess a 5-letter word.
+        </ThemedText>
       </View>
       <View style={styles.menu}>
         <Link
-          style={[styles.btn, { backgroundColor: '#000' }]}
-          href='/game'
+          href={'/game'}
+          style={[
+            styles.btn,
+            { backgroundColor: colorScheme === 'light' ? '#000' : '#4a4a4a' },
+          ]}
           asChild
         >
           <TouchableOpacity>
             <Text style={[styles.btnText, styles.primaryText]}>Play</Text>
           </TouchableOpacity>
         </Link>
-        <TouchableOpacity style={styles.btn}>
-          <Text style={styles.btnText}>Log in</Text>
+        <TouchableOpacity style={[styles.btn, { borderColor: textColor }]}>
+          <ThemedText style={styles.btnText}>Log in</ThemedText>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btn}>
-          <Text style={styles.btnText}>Subscribe</Text>
+        <TouchableOpacity style={[styles.btn, { borderColor: textColor }]}>
+          <ThemedText style={styles.btnText}>Subscribe</ThemedText>
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
-        <Text style={styles.footerText}>
+        <ThemedText style={styles.footerText}>
           {format(new Date(), "dd 'de' MMMM 'de' yyyy", { locale: es })}
-        </Text>
-        <Text style={styles.footerText}>No. 1122</Text>
-        <Text style={styles.footerText}>Edited by @Diego</Text>
+        </ThemedText>
+        <ThemedText style={styles.footerText}>No. 1122</ThemedText>
+        <ThemedText style={styles.footerText}>Edited by @Diego</ThemedText>
       </View>
     </View>
   );
@@ -78,7 +94,7 @@ const styles = StyleSheet.create({
     padding: 14,
     fontSize: 16,
     fontWeight: 'semibold',
-    color: '#333',
+    // color: '#444',
   },
   primaryText: {
     color: '#fff',
