@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { Link } from 'expo-router';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from '../../assets/images/wordle-icon.svg';
@@ -28,7 +29,11 @@ export default function Index() {
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
-        <Text style={styles.text}>Made by @Diego</Text>
+        <Text style={styles.footerText}>
+          {format(new Date(), 'dd-MM-yyyy')}
+        </Text>
+        <Text style={styles.footerText}>No. 1122</Text>
+        <Text style={styles.footerText}>Edited by @Diego</Text>
       </View>
     </View>
   );
@@ -59,10 +64,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 20,
   },
-  footer: {
-    alignItems: 'center',
-    gap: 10,
-  },
   btn: {
     justifyContent: 'center',
     borderRadius: 30,
@@ -80,5 +81,18 @@ const styles = StyleSheet.create({
   },
   primaryText: {
     color: '#fff',
+  },
+  footer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+  },
+  footerDate: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  footerText: {
+    fontSize: 20,
+    fontFamily: 'FrankRuhlLibre_500Medium',
   },
 });
