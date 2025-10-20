@@ -1,6 +1,8 @@
+import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Link } from 'expo-router';
+import { useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -16,8 +18,28 @@ export default function Index() {
   const colorScheme = useColorScheme();
   const backgroundColor = Colors[colorScheme ?? 'light'].background;
   const textColor = Colors[colorScheme ?? 'light'].text;
+  const subscribeModalRef = useRef<BottomSheetModal>(null);
+  const handlePresentSuscribeModal = () => {
+    subscribeModalRef.current?.present();
+  };
   return (
     <View style={[styles.container, { backgroundColor }]}>
+      <BottomSheetModal ref={subscribeModalRef}>
+        <BottomSheetView style={styles.containerSheet}>
+          <Text>Awesome 🎉</Text>
+          <Text>Awesome 🎉</Text>
+          <Text>Awesome 🎉</Text>
+          <Text>Awesome 🎉</Text>
+          <Text>Awesome 🎉</Text>
+          <Text>Awesome 🎉</Text>
+          <Text>Awesome 🎉</Text>
+          <Text>Awesome 🎉</Text>
+          <Text>Awesome 🎉</Text>
+          <Text>Awesome 🎉</Text>
+          <Text>Awesome 🎉</Text>
+          <Text>Awesome 🎉</Text>
+        </BottomSheetView>
+      </BottomSheetModal>
       <View style={styles.header}>
         <Icon width={100} height={70}></Icon>
         <ThemedText style={styles.title}>Wordle</ThemedText>
@@ -41,7 +63,10 @@ export default function Index() {
         <TouchableOpacity style={[styles.btn, { borderColor: textColor }]}>
           <ThemedText style={styles.btnText}>Log in</ThemedText>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.btn, { borderColor: textColor }]}>
+        <TouchableOpacity
+          onPress={handlePresentSuscribeModal}
+          style={[styles.btn, { borderColor: textColor }]}
+        >
           <ThemedText style={styles.btnText}>Subscribe</ThemedText>
         </TouchableOpacity>
       </View>
@@ -111,5 +136,9 @@ const styles = StyleSheet.create({
   footerText: {
     fontSize: 20,
     fontFamily: 'FrankRuhlLibre_500Medium',
+  },
+  containerSheet: {
+    flex: 1,
+    alignItems: 'center',
   },
 });
