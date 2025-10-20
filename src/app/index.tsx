@@ -24,18 +24,8 @@ export default function Index() {
   };
   return (
     <View style={[styles.container, { backgroundColor }]}>
-      <BottomSheetModal ref={subscribeModalRef}>
+      <BottomSheetModal snapPoints={['90%', '90%']} ref={subscribeModalRef}>
         <BottomSheetView style={styles.containerSheet}>
-          <Text>Awesome 🎉</Text>
-          <Text>Awesome 🎉</Text>
-          <Text>Awesome 🎉</Text>
-          <Text>Awesome 🎉</Text>
-          <Text>Awesome 🎉</Text>
-          <Text>Awesome 🎉</Text>
-          <Text>Awesome 🎉</Text>
-          <Text>Awesome 🎉</Text>
-          <Text>Awesome 🎉</Text>
-          <Text>Awesome 🎉</Text>
           <Text>Awesome 🎉</Text>
           <Text>Awesome 🎉</Text>
         </BottomSheetView>
