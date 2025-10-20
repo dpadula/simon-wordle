@@ -1,8 +1,13 @@
-import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import {
+  BottomSheetBackdrop,
+  BottomSheetModal,
+  BottomSheetView,
+  useBottomSheetModal,
+} from '@gorhom/bottom-sheet';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Link } from 'expo-router';
-import { useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -19,13 +24,53 @@ export default function Index() {
   const backgroundColor = Colors[colorScheme ?? 'light'].background;
   const textColor = Colors[colorScheme ?? 'light'].text;
   const subscribeModalRef = useRef<BottomSheetModal>(null);
-  const handlePresentSuscribeModal = () => {
+  const snapPoints = useMemo(() => ['85%'], []);
+
+  const { dismiss } = useBottomSheetModal();
+
+  const renderBackdrop = useCallback(
+    (props: any) => (
+      <BottomSheetBackdrop
+        opacity={0.6}
+        appearsOnIndex={0}
+        disappearsOnIndex={-1}
+        {...props}
+        onPress={dismiss}
+      />
+    ),
+    []
+  );
+  const handlePresentSuscribeModal = (index: number) => {
+    console.log('🚀 ~ handlePresentSuscribeModal ~ index:', index);
+
     subscribeModalRef.current?.present();
+
+    // subscribeModalRef.current?.snapToPosition(index);
+    // subscribeModalRef.current?.snapToIndex(index);
   };
+
+  // const handleSheetChange = useCallback((index: number) => {
+  //   console.log('handleSheetChange', index);
+  // }, []);
   return (
     <View style={[styles.container, { backgroundColor }]}>
-      <BottomSheetModal snapPoints={['90%', '90%']} ref={subscribeModalRef}>
+      {/* <BottomSheetModal snapPoints={['75%', '10%']} ref={subscribeModalRef}>
         <BottomSheetView style={styles.containerSheet}>
+          <Text>Awesome 🎉</Text>
+          <Text>Awesome 🎉</Text>
+        </BottomSheetView>
+      </BottomSheetModal> */}
+
+      <BottomSheetModal
+        ref={subscribeModalRef}
+        snapPoints={snapPoints}
+        index={1}
+        backdropComponent={renderBackdrop}
+        handleComponent={null}
+      >
+        <BottomSheetView style={styles.containerSheet}>
+          <Text>Awesome 🎉</Text>
+          <Text>Awesome 🎉</Text>
           <Text>Awesome 🎉</Text>
           <Text>Awesome 🎉</Text>
         </BottomSheetView>
@@ -54,7 +99,7 @@ export default function Index() {
           <ThemedText style={styles.btnText}>Log in</ThemedText>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={handlePresentSuscribeModal}
+          onPress={() => handlePresentSuscribeModal(3)}
           style={[styles.btn, { borderColor: textColor }]}
         >
           <ThemedText style={styles.btnText}>Subscribe</ThemedText>
