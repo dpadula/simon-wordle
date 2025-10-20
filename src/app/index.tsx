@@ -32,7 +32,7 @@ export default function Index() {
     (props: any) => (
       <BottomSheetBackdrop
         opacity={0.6}
-        appearsOnIndex={0}
+        appearsOnIndex={1}
         disappearsOnIndex={-1}
         {...props}
         onPress={dismiss}
@@ -40,9 +40,7 @@ export default function Index() {
     ),
     []
   );
-  const handlePresentSuscribeModal = (index: number) => {
-    console.log('🚀 ~ handlePresentSuscribeModal ~ index:', index);
-
+  const handlePresentSuscribeModal = () => {
     subscribeModalRef.current?.present();
 
     // subscribeModalRef.current?.snapToPosition(index);
@@ -99,7 +97,7 @@ export default function Index() {
           <ThemedText style={styles.btnText}>Log in</ThemedText>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => handlePresentSuscribeModal(3)}
+          onPress={() => handlePresentSuscribeModal()}
           style={[styles.btn, { borderColor: textColor }]}
         >
           <ThemedText style={styles.btnText}>Subscribe</ThemedText>
