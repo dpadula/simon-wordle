@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { Link } from 'expo-router';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from '../../assets/images/wordle-icon.svg';
@@ -30,7 +31,7 @@ export default function Index() {
       </View>
       <View style={styles.footer}>
         <Text style={styles.footerText}>
-          {format(new Date(), 'dd-MM-yyyy')}
+          {format(new Date(), "dd 'de' MMMM 'de' yyyy", { locale: es })}
         </Text>
         <Text style={styles.footerText}>No. 1122</Text>
         <Text style={styles.footerText}>Edited by @Diego</Text>
