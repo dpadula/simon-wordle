@@ -67,7 +67,15 @@ export default function RootLayout() {
                     headerTitleAlign: 'center',
                     headerTitle: () => <Logo width={150} height={40} />,
                     headerLeft: () => (
-                      <TouchableOpacity onPress={() => router.back()}>
+                      <TouchableOpacity
+                        onPress={() => router.back()}
+                        style={{
+                          width: 35,
+                          height: 30,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
+                      >
                         <Ionicons
                           name='close'
                           size={28}
