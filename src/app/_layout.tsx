@@ -5,17 +5,20 @@ import {
   FrankRuhlLibre_900Black,
   useFonts,
 } from '@expo-google-fonts/frank-ruhl-libre';
+import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from '@react-navigation/native';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import { useColorScheme } from 'react-native';
+import { TouchableOpacity, useColorScheme } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Logo from '../../assets/images/nyt-logo.svg';
+import { Colors } from '../constants/Colors';
 import { tokenCache } from '../utils/cache';
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
@@ -29,6 +32,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const router = useRouter();
   const [fontsLoaded] = useFonts({
     FrankRuhlLibre_800ExtraBold,
     FrankRuhlLibre_500Medium,
@@ -57,7 +61,21 @@ export default function RootLayout() {
                 <Stack.Screen name='index' options={{ headerShown: false }} />
                 <Stack.Screen
                   name='login'
-                  options={{ presentation: 'modal', headerShown: false }}
+                  options={{
+                    presentation: 'modal',
+                    headerShadowVisible: false,
+                    headerTitleAlign: 'center',
+                    headerTitle: () => <Logo width={150} height={40} />,
+                    headerLeft: () => (
+                      <TouchableOpacity onPress={() => router.back()}>
+                        <Ionicons
+                          name='close'
+                          size={28}
+                          color={Colors.light.gray}
+                        />
+                      </TouchableOpacity>
+                    ),
+                  }}
                 />
               </Stack>
             </BottomSheetModalProvider>
