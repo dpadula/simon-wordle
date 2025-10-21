@@ -20,56 +20,13 @@ export default function Index() {
   const backgroundColor = Colors[colorScheme ?? 'light'].background;
   const textColor = Colors[colorScheme ?? 'light'].text;
   const subscribeModalRef = useRef<BottomSheetModal>(null);
-  // const snapPoints = useMemo(() => ['85%'], []);
-
-  // const { dismiss } = useBottomSheetModal();
-
-  // const renderBackdrop = useCallback(
-  //   (props: any) => (
-  //     <BottomSheetBackdrop
-  //       opacity={0.6}
-  //       appearsOnIndex={1}
-  //       disappearsOnIndex={-1}
-  //       {...props}
-  //       onPress={dismiss}
-  //     />
-  //   ),
-  //   []
-  // );
   const handlePresentSuscribeModal = () => {
     subscribeModalRef.current?.present();
-
-    // subscribeModalRef.current?.snapToPosition(index);
-    // subscribeModalRef.current?.snapToIndex(index);
   };
 
-  // const handleSheetChange = useCallback((index: number) => {
-  //   console.log('handleSheetChange', index);
-  // }, []);
   return (
     <View style={[styles.container, { backgroundColor }]}>
       <SuscribeModal ref={subscribeModalRef}></SuscribeModal>
-      {/* <BottomSheetModal snapPoints={['75%', '10%']} ref={subscribeModalRef}>
-        <BottomSheetView style={styles.containerSheet}>
-          <Text>Awesome 🎉</Text>
-          <Text>Awesome 🎉</Text>
-        </BottomSheetView>
-      </BottomSheetModal> */}
-
-      {/* <BottomSheetModal
-        ref={subscribeModalRef}
-        snapPoints={snapPoints}
-        index={1}
-        backdropComponent={renderBackdrop}
-        handleComponent={null}
-      >
-        <BottomSheetView style={styles.containerSheet}>
-          <Text>Awesome 🎉</Text>
-          <Text>Awesome 🎉</Text>
-          <Text>Awesome 🎉</Text>
-          <Text>Awesome 🎉</Text>
-        </BottomSheetView>
-      </BottomSheetModal> */}
       <View style={styles.header}>
         <Icon width={100} height={70}></Icon>
         <ThemedText style={styles.title}>Wordle</ThemedText>
