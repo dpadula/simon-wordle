@@ -3,6 +3,7 @@ import {
   BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetScrollView,
+  BottomSheetView,
   useBottomSheetModal,
 } from '@gorhom/bottom-sheet';
 import disc from '@jsamr/counter-style/presets/disc';
@@ -50,8 +51,9 @@ const SuscribeModal = forwardRef<Ref>((props, ref) => {
       snapPoints={snapPoints}
       backdropComponent={renderBackdrop}
       handleComponent={null}
+      enableDynamicSizing={false}
     >
-      <View style={styles.sheetContainer}>
+      <BottomSheetView style={styles.sheetContainer}>
         <View style={styles.modalBtns}>
           <Link href={'/login'} asChild>
             <TouchableOpacity>
@@ -62,8 +64,7 @@ const SuscribeModal = forwardRef<Ref>((props, ref) => {
             <Ionicons name='close' size={28} color={Colors.light.gray} />
           </TouchableOpacity>
         </View>
-      </View>
-
+      </BottomSheetView>
       <BottomSheetScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -124,6 +125,7 @@ export default SuscribeModal;
 const styles = StyleSheet.create({
   sheetContainer: {
     flex: 1,
+    zIndex: 100,
     backgroundColor: 'white',
     // alignItems: 'center',
   },
@@ -151,8 +153,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   scrollContent: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 50,
   },
   disclaimer: {
     fontSize: 12,
