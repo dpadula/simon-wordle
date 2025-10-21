@@ -3,7 +3,6 @@ import {
   BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetScrollView,
-  BottomSheetView,
   useBottomSheetModal,
 } from '@gorhom/bottom-sheet';
 import disc from '@jsamr/counter-style/presets/disc';
@@ -52,7 +51,7 @@ const SuscribeModal = forwardRef<Ref>((props, ref) => {
       backdropComponent={renderBackdrop}
       handleComponent={null}
     >
-      <BottomSheetView style={styles.sheetContainer}>
+      <View style={styles.sheetContainer}>
         <View style={styles.modalBtns}>
           <Link href={'/login'} asChild>
             <TouchableOpacity>
@@ -63,8 +62,12 @@ const SuscribeModal = forwardRef<Ref>((props, ref) => {
             <Ionicons name='close' size={28} color={Colors.light.gray} />
           </TouchableOpacity>
         </View>
-      </BottomSheetView>
-      <BottomSheetScrollView>
+      </View>
+
+      <BottomSheetScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
         <Text style={styles.containerHeadline}>
           Unlimited Play.{'\n'}Try free for 7 days.
         </Text>
@@ -103,15 +106,15 @@ const SuscribeModal = forwardRef<Ref>((props, ref) => {
           cancel, please turn off auto-renew at lead; 24-hours before the end of
           your current billing period from your iTunes account settings.
         </Text>
+        <View style={[styles.footer, { paddingBottom: bottom }]}>
+          <TouchableOpacity style={defaultStyles.btn}>
+            <Text style={defaultStyles.btnText}>Try 7 days free</Text>
+          </TouchableOpacity>
+          <Text style={styles.footerText}>
+            2,99 €/month after 7-day trial. Cancel anytime.
+          </Text>
+        </View>
       </BottomSheetScrollView>
-      <View style={[styles.footer, { paddingBottom: bottom }]}>
-        <TouchableOpacity style={defaultStyles.btn}>
-          <Text style={defaultStyles.btnText}>Try 7 days free</Text>
-        </TouchableOpacity>
-        <Text style={styles.footerText}>
-          2,99 €/month after 7-day trial. Cancel anytime.
-        </Text>
-      </View>
     </BottomSheetModal>
   );
 });
@@ -121,6 +124,7 @@ export default SuscribeModal;
 const styles = StyleSheet.create({
   sheetContainer: {
     flex: 1,
+    backgroundColor: 'white',
     // alignItems: 'center',
   },
   image: {
@@ -145,6 +149,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#000',
     fontWeight: 'bold',
+  },
+  scrollContent: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   disclaimer: {
     fontSize: 12,
