@@ -107,15 +107,15 @@ const SuscribeModal = forwardRef<Ref>((props, ref) => {
           cancel, please turn off auto-renew at lead; 24-hours before the end of
           your current billing period from your iTunes account settings.
         </Text>
-        <View style={[styles.footer, { paddingBottom: bottom }]}>
-          <TouchableOpacity style={defaultStyles.btn}>
-            <Text style={defaultStyles.btnText}>Try 7 days free</Text>
-          </TouchableOpacity>
-          <Text style={styles.footerText}>
-            2,99 €/month after 7-day trial. Cancel anytime.
-          </Text>
-        </View>
       </BottomSheetScrollView>
+      <View style={[styles.footer, { paddingBottom: bottom }]}>
+        <TouchableOpacity style={defaultStyles.btn}>
+          <Text style={defaultStyles.btnText}>Try 7 days free</Text>
+        </TouchableOpacity>
+        <Text style={styles.footerText}>
+          2,99 €/month after 7-day trial. Cancel anytime.
+        </Text>
+      </View>
     </BottomSheetModal>
   );
 });
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   scrollContent: {
-    paddingVertical: 50,
+    paddingVertical: 30,
   },
   disclaimer: {
     fontSize: 12,
