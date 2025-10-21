@@ -47,9 +47,15 @@ export default function Index() {
             <Text style={[styles.btnText, styles.primaryText]}>Play</Text>
           </TouchableOpacity>
         </Link>
-        <TouchableOpacity style={[styles.btn, { borderColor: textColor }]}>
-          <ThemedText style={styles.btnText}>Log in</ThemedText>
-        </TouchableOpacity>
+        <Link
+          href={'/login'}
+          style={[styles.btn, { borderColor: textColor }]}
+          asChild
+        >
+          <TouchableOpacity>
+            <ThemedText style={styles.btnText}>Log in</ThemedText>
+          </TouchableOpacity>
+        </Link>
         <TouchableOpacity
           onPress={() => handlePresentSuscribeModal()}
           style={[styles.btn, { borderColor: textColor }]}
