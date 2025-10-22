@@ -32,8 +32,20 @@ const Game = () => {
   const [curRow, setCurRow] = useState(0);
   const [curCol, _setCurCol] = useState(0);
 
-  const [greenLetters, setGreenLetters] = useState<string[]>([]);
-  const [yellowLetters, setYellowLetters] = useState<string[]>([]);
+  const [greenLetters, setGreenLetters] = useState<string[]>([
+    'q',
+    'w',
+    'e',
+    'r',
+    't',
+  ]);
+  const [yellowLetters, setYellowLetters] = useState<string[]>([
+    'y',
+    'u',
+    'i',
+    'o',
+    'p',
+  ]);
   const [grayLetters, setGrayLetters] = useState<string[]>([]);
 
   const settingsModalRef = useRef<BottomSheetModal>(null);

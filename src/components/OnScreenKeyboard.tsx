@@ -52,7 +52,6 @@ const OnScreenKeyboard = ({
                 styles.key,
                 { width: keyWidth, height: keyHeight, backgroundColor: '#ddd' },
                 isSpecialKey(key) && { width: keyWidth * 1.5 },
-                pressed && { backgroundColor: '#868686' },
                 {
                   backgroundColor: greenLetters.includes(key)
                     ? Colors.light.green
@@ -62,6 +61,7 @@ const OnScreenKeyboard = ({
                     ? Colors.light.gray
                     : '#ddd',
                 },
+                pressed && { backgroundColor: '#868686' },
               ]}
             >
               <Text
