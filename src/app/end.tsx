@@ -78,35 +78,32 @@ const End = () => {
 <html>
   <body style="font-family: Arial, sans-serif;">
     <h1>Wordle</h1>
-    <div>
+    <table cellspacing="2" cellpadding="5">
       ${imageText
         .map(
           (row) => `
-          <div style="display: flex; flex-direction: row;">
+          <tr>
             ${row
               .map(
                 (cell) => `
-                <div style="
+                <td style="
+                  border: 1px solid #ccc;
                   width: 30px;
                   height: 30px;
-                  border: 1px solid #ccc;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  margin: 2px;
-                  font-weight: bold;
+                  text-align: center;
                   background-color: #f2f2f2;
+                  font-weight: bold;
                 ">
                   ${cell}
-                </div>
+                </td>
               `,
               )
               .join('')}
-          </div>
+          </tr>
         `,
         )
         .join('')}
-    </div>
+    </table>
   </body>
 </html>
 `;
