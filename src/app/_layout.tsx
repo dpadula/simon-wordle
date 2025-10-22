@@ -85,6 +85,18 @@ export default function RootLayout() {
                     },
                   }}
                 />
+                <Stack.Screen
+                  name="win"
+                  options={{
+                    headerBackTitle: 'Wordle',
+                    headerTintColor: colorScheme === 'dark' ? '#fff' : '#000',
+                    title: '',
+                    headerBackTitleStyle: {
+                      fontSize: 26,
+                      fontFamily: 'FrankRuhlLibre_800ExtraBold',
+                    },
+                  }}
+                />
               </Stack>
             </BottomSheetModalProvider>
           </GestureHandlerRootView>

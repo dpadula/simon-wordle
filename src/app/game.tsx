@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import React, { useRef, useState } from 'react';
 import { StyleSheet, TouchableOpacity, useColorScheme, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withDelay, withTiming, ZoomIn } from 'react-native-reanimated';
@@ -16,6 +16,7 @@ const Game = () => {
   //   words[Math.floor(Math.random() * words.length)]
   // );
   const [word, setWord] = useState('diego');
+  const router = useRouter();
   const wordLetters = word.split('');
   const colorScheme = useColorScheme();
   const backgroundColor = Colors[colorScheme ?? 'light'].gameBg;
@@ -107,10 +108,10 @@ const Game = () => {
     setTimeout(() => {
       if (currentWord === word) {
         console.log('🚀 ~ checkWord ~ WIN');
-        // router.push(`/end?win=true&word=${word}&gameField=${JSON.stringify(rows)}`);
+        router.push(`/end?win=true&word=${word}&gameField=${JSON.stringify(rows)}`);
       } else if (curRow + 1 >= rows.length) {
         console.log('GAME OVER');
-        // router.push(`/end?win=false&word=${word}&gameField=${JSON.stringify(rows)}`);
+        router.push(`/end?win=false&word=${word}&gameField=${JSON.stringify(rows)}`);
       }
     }, 1500);
     setCurRow(curRow + 1);
