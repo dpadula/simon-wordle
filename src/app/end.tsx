@@ -2,10 +2,12 @@ import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
 import * as MailComposer from 'expo-mail-composer';
 import { Link, useLocalSearchParams, useRouter } from 'expo-router';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from '../../assets/images/wordle-icon.svg';
 import { Colors } from '../constants/Colors';
+import { FIRESTORE_DB } from '../utils/FirebaseConfig';
 
 const End = () => {
   const { win, word, gameField } = useLocalSearchParams<{
@@ -29,6 +31,28 @@ const End = () => {
   const updateHighscore = async () => {
     console.log('updating highscore', user);
     if (!user) return;
+    const docRef = doc(FIRESTORE_DB, `highscore/${user.id}`);
+    const userScore = await getDoc(docRef);
+    console.log('🚀 ~ updateHighscore ~ userScore:', userScore);
+
+    let newScore = {
+      played: 1,
+      wins: win === 'true' ? 1 : 0,
+      lastGame: win === 'true' ? 'win' : 'loss',
+      currentStreak: win === 'true' ? 1 : 0,
+    };
+    if (userScore.exists()) {
+      const data = userScore.data();
+
+      newScore = {
+        played: data.played + 1,
+        wins: win === 'true' ? data.wins + 1 : data.wins,
+        lastGame: win === 'true' ? 'win' : 'loss',
+        currentStreak: win === 'true' && data.lastGame === 'win' ? data.currentStreak + 1 : 0,
+      };
+    }
+    await setDoc(docRef, newScore);
+    setUserScore(newScore);
   };
 
   const shareGame = () => {
