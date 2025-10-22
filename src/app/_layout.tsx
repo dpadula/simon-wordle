@@ -86,10 +86,12 @@ export default function RootLayout() {
                   }}
                 />
                 <Stack.Screen
-                  name="win"
+                  name="end"
                   options={{
+                    headerBackVisible: false,
                     presentation: 'fullScreenModal',
                     title: '',
+                    headerShadowVisible: false,
                     headerBackTitleStyle: {
                       fontSize: 26,
                       fontFamily: 'FrankRuhlLibre_800ExtraBold',
