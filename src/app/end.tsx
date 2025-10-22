@@ -1,6 +1,6 @@
-import { useUser } from '@clerk/clerk-expo';
+import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Link, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from '../../assets/images/wordle-icon.svg';
@@ -42,6 +42,50 @@ const End = () => {
         {win === 'true' ? <Image source={require('../../assets/images/win.png')} /> : <Icon width={100} height={70} />}
 
         <Text style={styles.title}>{win === 'true' ? 'Congratulations!' : 'Thanks for playing today!'}</Text>
+        <SignedOut>
+          <Text style={styles.text}>Want to see your stats and streaks?</Text>
+
+          <Link href={'/login'} style={styles.btn} asChild>
+            <TouchableOpacity>
+              <Text style={styles.btnText}>Create a free account</Text>
+            </TouchableOpacity>
+          </Link>
+
+          <Link href={'/login'} asChild>
+            <TouchableOpacity>
+              <Text style={styles.textLink}>Already Registered? Log In</Text>
+            </TouchableOpacity>
+          </Link>
+        </SignedOut>
+        <SignedIn>
+          <Text style={styles.text}>Statistics</Text>
+          <View style={styles.stats}>
+            <View>
+              <Text style={styles.score}>{userScore?.played}</Text>
+              <Text>Played</Text>
+            </View>
+            <View>
+              <Text style={styles.score}>{userScore?.wins}</Text>
+              <Text>Wins</Text>
+            </View>
+            <View>
+              <Text style={styles.score}>{userScore?.currentStreak}</Text>
+              <Text>Current Streak</Text>
+            </View>
+          </View>
+        </SignedIn>
+        <View
+          style={{
+            height: StyleSheet.hairlineWidth,
+            width: '100%',
+            backgroundColor: '#4e4e4e',
+          }}
+        />
+
+        <TouchableOpacity style={styles.iconBtn} onPress={shareGame}>
+          <Text style={styles.btnText}>Share</Text>
+          <Ionicons name="share-social" size={24} color="#fff" />
+        </TouchableOpacity>
       </View>
     </View>
   );
