@@ -88,8 +88,7 @@ export default function RootLayout() {
                 <Stack.Screen
                   name="win"
                   options={{
-                    headerBackTitle: 'Wordle',
-                    headerTintColor: colorScheme === 'dark' ? '#fff' : '#000',
+                    presentation: 'fullScreenModal',
                     title: '',
                     headerBackTitleStyle: {
                       fontSize: 26,
