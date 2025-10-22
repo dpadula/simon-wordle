@@ -7,11 +7,7 @@ import {
 } from '@expo-google-fonts/frank-ruhl-libre';
 import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
@@ -23,9 +19,7 @@ import { tokenCache } from '../utils/cache';
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
 if (!publishableKey) {
-  throw new Error(
-    'Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env'
-  );
+  throw new Error('Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env');
 }
 
 SplashScreen.preventAutoHideAsync();
@@ -52,15 +46,13 @@ export default function RootLayout() {
   return (
     <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
       <ClerkLoaded>
-        <ThemeProvider
-          value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-        >
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <BottomSheetModalProvider>
               <Stack>
-                <Stack.Screen name='index' options={{ headerShown: false }} />
+                <Stack.Screen name="index" options={{ headerShown: false }} />
                 <Stack.Screen
-                  name='login'
+                  name="login"
                   options={{
                     presentation: 'modal',
                     headerShadowVisible: false,
@@ -76,17 +68,13 @@ export default function RootLayout() {
                           alignItems: 'center',
                         }}
                       >
-                        <Ionicons
-                          name='close'
-                          size={28}
-                          color={Colors.light.gray}
-                        />
+                        <Ionicons name="close" size={28} color={Colors.light.gray} />
                       </TouchableOpacity>
                     ),
                   }}
                 />
                 <Stack.Screen
-                  name='game'
+                  name="game"
                   options={{
                     headerBackTitle: 'Wordle',
                     headerTintColor: colorScheme === 'dark' ? '#fff' : '#000',

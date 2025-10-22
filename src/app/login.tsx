@@ -3,14 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as AuthSession from 'expo-auth-session';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useState } from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../constants/Colors';
 import { defaultStyles } from '../constants/Styles';
 
@@ -46,24 +39,18 @@ const Login = () => {
         console.error('OAuth error:', JSON.stringify(err, null, 2));
       }
     },
-    [startSSOFlow]
+    [startSSOFlow],
   );
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>Log in or create an account</Text>
       <Text style={styles.subText}>
-        By continuing, you agree to the Terms of Sale, Terms of Service, and
-        Privacy Policy.
+        By continuing, you agree to the Terms of Sale, Terms of Service, and Privacy Policy.
       </Text>
 
       <Text style={styles.inputLabel}>Email address</Text>
-      <TextInput
-        style={styles.input}
-        placeholder='Email'
-        value={email}
-        onChangeText={setEmail}
-      />
+      <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} />
 
       <TouchableOpacity style={defaultStyles.btn}>
         <Text style={defaultStyles.btnText}>Continue with email</Text>
@@ -76,27 +63,18 @@ const Login = () => {
       </View>
 
       <View style={{ gap: 20 }}>
-        <TouchableOpacity
-          style={styles.btnOutline}
-          onPress={() => onSelectAuth(Strategy.Google)}
-        >
-          <Ionicons name='logo-google' size={24} style={styles.btnIcon} />
+        <TouchableOpacity style={styles.btnOutline} onPress={() => onSelectAuth(Strategy.Google)}>
+          <Ionicons name="logo-google" size={24} style={styles.btnIcon} />
           <Text style={styles.btnOutlineText}>Continue with Google</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.btnOutline}
-          onPress={() => onSelectAuth(Strategy.Facebook)}
-        >
-          <Ionicons name='logo-facebook' size={24} style={styles.btnIcon} />
+        <TouchableOpacity style={styles.btnOutline} onPress={() => onSelectAuth(Strategy.Facebook)}>
+          <Ionicons name="logo-facebook" size={24} style={styles.btnIcon} />
           <Text style={styles.btnOutlineText}>Continue with Facebook</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.btnOutline}
-          onPress={() => onSelectAuth(Strategy.Apple)}
-        >
-          <Ionicons name='logo-apple' size={24} style={styles.btnIcon} />
+        <TouchableOpacity style={styles.btnOutline} onPress={() => onSelectAuth(Strategy.Apple)}>
+          <Ionicons name="logo-apple" size={24} style={styles.btnIcon} />
           <Text style={styles.btnOutlineText}>Continue with Apple</Text>
         </TouchableOpacity>
       </View>

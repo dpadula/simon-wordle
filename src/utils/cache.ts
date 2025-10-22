@@ -26,5 +26,4 @@ const createTokenCache = () => {
 
 // SecureStore is not supported on the web
 // https://github.com/expo/expo/issues/7744#issuecomment-611093485
-export const tokenCache =
-  Platform.OS !== 'web' ? createTokenCache() : undefined;
+export const tokenCache = Platform.OS !== 'web' ? createTokenCache() : undefined;

@@ -3,54 +3,40 @@ import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Stack } from 'expo-router';
 import React, { useRef, useState } from 'react';
-import {
-  StyleSheet,
-  TouchableOpacity,
-  useColorScheme,
-  View,
-} from 'react-native';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  ZoomIn,
-} from 'react-native-reanimated';
+import { StyleSheet, TouchableOpacity, useColorScheme, View } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, ZoomIn } from 'react-native-reanimated';
 import OnScreenKeyboard from '../components/OnScreenKeyboard';
 import { Colors } from '../constants/Colors';
 
 const ROWS = 6;
 
 const Game = () => {
+  // const [word, setWord] = useState(
+  //   words[Math.floor(Math.random() * words.length)]
+  // );
+  const [word, setWord] = useState('diego');
   const colorScheme = useColorScheme();
   const backgroundColor = Colors[colorScheme ?? 'light'].gameBg;
   const textColor = Colors[colorScheme ?? 'light'].text;
   const grayColor = Colors[colorScheme ?? 'light'].gray;
 
   //Cada filera tendra 5 letras
-  const [rows, setRows] = useState<string[][]>(
-    new Array(ROWS).fill(new Array(5).fill(''))
-  );
+  const [rows, setRows] = useState<string[][]>(new Array(ROWS).fill(new Array(5).fill('')));
   const [curRow, setCurRow] = useState(0);
   const [curCol, _setCurCol] = useState(0);
 
-  const [greenLetters, setGreenLetters] = useState<string[]>([
-    'q',
-    'w',
-    'e',
-    'r',
-    't',
-  ]);
-  const [yellowLetters, setYellowLetters] = useState<string[]>([
-    'y',
-    'u',
-    'i',
-    'o',
-    'p',
-  ]);
+  const [greenLetters, setGreenLetters] = useState<string[]>(['q', 'w', 'e', 'r', 't']);
+  const [yellowLetters, setYellowLetters] = useState<string[]>(['y', 'u', 'i', 'o', 'p']);
   const [grayLetters, setGrayLetters] = useState<string[]>([]);
 
   const settingsModalRef = useRef<BottomSheetModal>(null);
-  const handlePresentSubscribeModalPress = () =>
-    settingsModalRef.current?.present();
+  const handlePresentSubscribeModalPress = () => settingsModalRef.current?.present();
+
+  const colStateRef = useRef(curCol);
+  const setCurCol = (data: number) => {
+    colStateRef.current = data;
+    _setCurCol(data);
+  };
   const addKey = (key: string) => {
     console.log('KEY: ', key);
   };
@@ -62,19 +48,17 @@ const Game = () => {
       return {
         transform: [{ translateX: offsetShakes[index].value }],
       };
-    })
+    }),
   );
 
-  const tileRotates = Array.from({ length: ROWS }, () =>
-    Array.from({ length: 5 }, () => useSharedValue(0))
-  );
+  const tileRotates = Array.from({ length: ROWS }, () => Array.from({ length: 5 }, () => useSharedValue(0)));
 
   const cellBackgrounds = Array.from({ length: ROWS }, () =>
-    Array.from({ length: 5 }, () => useSharedValue('transparent'))
+    Array.from({ length: 5 }, () => useSharedValue('transparent')),
   );
 
   const cellBorders = Array.from({ length: ROWS }, () =>
-    Array.from({ length: 5 }, () => useSharedValue(Colors.light.gray))
+    Array.from({ length: 5 }, () => useSharedValue(Colors.light.gray)),
   );
 
   const tileStyles = Array.from({ length: ROWS }, (_, index) => {
@@ -85,7 +69,7 @@ const Game = () => {
           borderColor: cellBorders[index][tileIndex].value,
           backgroundColor: cellBackgrounds[index][tileIndex].value,
         };
-      })
+      }),
     );
   });
 
@@ -95,14 +79,10 @@ const Game = () => {
         options={{
           headerRight: () => (
             <View style={styles.headerIcons}>
-              <Ionicons
-                name='help-circle-outline'
-                size={28}
-                color={textColor}
-              />
-              <Ionicons name='podium-outline' size={24} color={textColor} />
+              <Ionicons name="help-circle-outline" size={28} color={textColor} />
+              <Ionicons name="podium-outline" size={24} color={textColor} />
               <TouchableOpacity onPress={handlePresentSubscribeModalPress}>
-                <Ionicons name='settings-sharp' size={24} color={textColor} />
+                <Ionicons name="settings-sharp" size={24} color={textColor} />
               </TouchableOpacity>
             </View>
           ),
@@ -110,15 +90,9 @@ const Game = () => {
       />
       <View style={styles.gameField}>
         {rows.map((row, rowIndex) => (
-          <Animated.View
-            style={[styles.gameFieldRow, rowStyles[rowIndex]]}
-            key={`row-${rowIndex}`}
-          >
+          <Animated.View style={[styles.gameFieldRow, rowStyles[rowIndex]]} key={`row-${rowIndex}`}>
             {row.map((cell, cellIndex) => (
-              <Animated.View
-                entering={ZoomIn.delay(50 * cellIndex)}
-                key={`cell-${rowIndex}-${cellIndex}`}
-              >
+              <Animated.View entering={ZoomIn.delay(50 * cellIndex)} key={`cell-${rowIndex}-${cellIndex}`}>
                 <Animated.View
                   style={[
                     styles.cell,
