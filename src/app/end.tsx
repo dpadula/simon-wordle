@@ -2,7 +2,7 @@ import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
 import * as MailComposer from 'expo-mail-composer';
 import { Link, useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from '../../assets/images/wordle-icon.svg';
 import { Colors } from '../constants/Colors';
@@ -21,6 +21,15 @@ const End = () => {
     wins: 2,
     currentStreak: 1,
   });
+
+  useEffect(() => {
+    updateHighscore();
+  }, [user]);
+
+  const updateHighscore = async () => {
+    console.log('updating highscore', user);
+    if (!user) return;
+  };
 
   const shareGame = () => {
     const game = JSON.parse(gameField!);
