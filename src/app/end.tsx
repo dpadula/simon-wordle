@@ -75,37 +75,28 @@ const End = () => {
     // `;
 
     const html = `
-<html>
-  <body style="font-family: Arial, sans-serif;">
-    <h1>Wordle</h1>
-    <table cellspacing="2" cellpadding="5">
-      ${imageText
-        .map(
-          (row) => `
-          <tr>
-            ${row
-              .map(
-                (cell) => `
-                <td style="
-                  border: 1px solid #ccc;
-                  width: 30px;
-                  height: 30px;
-                  text-align: center;
-                  background-color: #f2f2f2;
-                  font-weight: bold;
-                ">
-                  ${cell}
-                </td>
-              `,
-              )
-              .join('')}
-          </tr>
-        `,
-        )
-        .join('')}
-    </table>
-  </body>
-</html>
+  <html>
+    <body>
+      <h1 style="text-align: center; font-family: Arial, sans-serif; margin-bottom: 20px;">Wordle</h1>
+
+      <div style="text-align: center; font-size: 24px; line-height: 1.2;">
+
+        ${imageText
+          .map(
+            (row) => `
+            <div style="font-family: monospace; padding: 2px 0;">
+              ${row.join('')}
+            </div>
+          `,
+          )
+          .join('')}
+      </div>
+
+      <p style="text-align: center; font-family: Arial, sans-serif; margin-top: 30px;">
+        ¡Resultado de Wordle compartido!
+      </p>
+    </body>
+  </html>
 `;
 
     MailComposer.composeAsync({
