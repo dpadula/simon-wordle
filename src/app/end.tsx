@@ -2,7 +2,8 @@ import { useUser } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Icon from '../../assets/images/wordle-icon.svg';
 import { Colors } from '../constants/Colors';
 
 const End = () => {
@@ -36,6 +37,12 @@ const End = () => {
       >
         <Ionicons name="close" size={30} color={Colors.light.gray} />
       </TouchableOpacity>
+
+      <View style={styles.header}>
+        {win === 'true' ? <Image source={require('../../assets/images/win.png')} /> : <Icon width={100} height={70} />}
+
+        <Text style={styles.title}>{win === 'true' ? 'Congratulations!' : 'Thanks for playing today!'}</Text>
+      </View>
     </View>
   );
 };
