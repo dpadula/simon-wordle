@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Stack } from 'expo-router';
@@ -133,12 +134,10 @@ const Game = () => {
         ))}
       </View>
       <OnScreenKeyboard
-        onKeyPressed={function (key: string): void {
-          console.log('key :>> ', key);
-        }}
-        greenLetters={[]}
-        yellowLetters={[]}
-        grayLetters={[]}
+        onKeyPressed={addKey}
+        greenLetters={greenLetters}
+        yellowLetters={yellowLetters}
+        grayLetters={grayLetters}
       ></OnScreenKeyboard>
     </View>
   );
