@@ -1,12 +1,7 @@
 export const allWords = [
   'abaca',
   'abada',
-  'abadi',
-  'abaja',
-  'abaje',
   'abajo',
-  'abano',
-  'abasi',
   'abata',
   'abate',
   'abato',
