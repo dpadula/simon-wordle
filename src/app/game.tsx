@@ -6,6 +6,7 @@ import React, { useRef, useState } from 'react';
 import { StyleSheet, TouchableOpacity, useColorScheme, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withDelay, withTiming, ZoomIn } from 'react-native-reanimated';
 import OnScreenKeyboard from '../components/OnScreenKeyboard';
+import SettingsModal from '../components/SettingsModal';
 import { Colors } from '../constants/Colors';
 import { allWords } from '../utils/allWords';
 
@@ -33,7 +34,10 @@ const Game = () => {
   const [grayLetters, setGrayLetters] = useState<string[]>([]);
 
   const settingsModalRef = useRef<BottomSheetModal>(null);
-  const handlePresentSubscribeModalPress = () => settingsModalRef.current?.present();
+  const handlePresentSubscribeModalPress = () => {
+    console.log('handlePresentSubscribeModalPress');
+    settingsModalRef.current?.present();
+  };
 
   const colStateRef = useRef(curCol);
   const setCurCol = (data: number) => {
@@ -45,7 +49,7 @@ const Game = () => {
     console.log('CURRENT: ', colStateRef.current);
 
     const newRows = [...rows.map((row) => [...row])];
-    console.log('🚀 ~ addKey ~ newRows:', newRows);
+    // console.log('🚀 ~ addKey ~ newRows:', newRows);
 
     if (key === 'ENTER') {
       checkWord();
@@ -202,6 +206,7 @@ const Game = () => {
 
   return (
     <View style={[styles.container, { backgroundColor }]}>
+      <SettingsModal ref={settingsModalRef} />
       <Stack.Screen
         options={{
           headerRight: () => (
