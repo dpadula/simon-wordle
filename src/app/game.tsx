@@ -3,7 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Stack, useRouter } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, useColorScheme, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -247,6 +247,28 @@ const Game = () => {
       setBorderColor(cell, curRow - 1, cellIndex);
     });
   }, [curRow]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        addKey('ENTER');
+      } else if (e.key === 'Backspace') {
+        addKey('BACKSPACE');
+      } else if (e.key.length === 1) {
+        addKey(e.key);
+      }
+    };
+
+    if (Platform.OS === 'web') {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      if (Platform.OS === 'web') {
+        document.removeEventListener('keydown', handleKeyDown);
+      }
+    };
+  });
 
   return (
     <View style={[styles.container, { backgroundColor }]}>
