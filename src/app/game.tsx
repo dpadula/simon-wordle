@@ -2,9 +2,17 @@
 import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Stack, useRouter } from 'expo-router';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, TouchableOpacity, useColorScheme, View } from 'react-native';
-import Animated, { useAnimatedStyle, useSharedValue, withDelay, withTiming, ZoomIn } from 'react-native-reanimated';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withRepeat,
+  withSequence,
+  withTiming,
+  ZoomIn,
+} from 'react-native-reanimated';
 import OnScreenKeyboard from '../components/OnScreenKeyboard';
 import SettingsModal from '../components/SettingsModal';
 import { Colors } from '../constants/Colors';
@@ -79,17 +87,19 @@ const Game = () => {
     const currentWord = rows[curRow].join('');
 
     if (currentWord.length < word.length) {
-      // shakeRow();
-      console.log('NOT ENOUGH LETTERS');
+      console.log('🚀 ~ checkWord ~ currentWord.length:', currentWord.length);
+      console.log('🚀 ~ checkWord ~ word.length:', word.length);
+      shakeRow();
+      // console.log('NOT ENOUGH LETTERS');
       return;
     }
 
     if (!allWords.includes(currentWord)) {
       console.log('NOT A WORD');
-      // shakeRow();
+      shakeRow();
       // return;
     }
-    // flipRow();
+    flipRow();
 
     const newGreen: string[] = [];
     const newYellow: string[] = [];
@@ -123,26 +133,26 @@ const Game = () => {
   };
 
   //Intento de coloreo
-  const getCellColor = (cell: string, rowIndex: number, cellIndex: number) => {
-    // 'worklet';
-    if (curRow > rowIndex) {
-      if (wordLetters[cellIndex] === cell) {
-        return Colors.light.green;
-      } else if (wordLetters.includes(cell)) {
-        return Colors.light.yellow;
-      } else {
-        return grayColor;
-      }
-    }
-    return 'transparent';
-  };
+  // const getCellColor = (cell: string, rowIndex: number, cellIndex: number) => {
+  //   // 'worklet';
+  //   if (curRow > rowIndex) {
+  //     if (wordLetters[cellIndex] === cell) {
+  //       return Colors.light.green;
+  //     } else if (wordLetters.includes(cell)) {
+  //       return Colors.light.yellow;
+  //     } else {
+  //       return grayColor;
+  //     }
+  //   }
+  //   return 'transparent';
+  // };
 
-  const getBorderColor = (cell: string, rowIndex: number, cellIndex: number) => {
-    if (curRow > rowIndex && cell !== '') {
-      return getCellColor(cell, rowIndex, cellIndex);
-    }
-    return Colors.light.gray;
-  };
+  // const getBorderColor = (cell: string, rowIndex: number, cellIndex: number) => {
+  //   if (curRow > rowIndex && cell !== '') {
+  //     return getCellColor(cell, rowIndex, cellIndex);
+  //   }
+  //   return Colors.light.gray;
+  // };
 
   // Animations
   const setCellColor = (cell: string, rowIndex: number, cellIndex: number) => {
@@ -204,6 +214,40 @@ const Game = () => {
     );
   });
 
+  const shakeRow = () => {
+    const TIME = 80;
+    const OFFSET = 10;
+
+    offsetShakes[curRow].value = withSequence(
+      withTiming(-OFFSET, { duration: TIME / 2 }),
+      withRepeat(withTiming(OFFSET, { duration: TIME }), 4, true),
+      withTiming(0, { duration: TIME / 2 }),
+    );
+  };
+
+  const flipRow = () => {
+    const TIME = 300;
+    const OFFSET = 90;
+
+    tileRotates[curRow].forEach((value, index) => {
+      value.value = withDelay(
+        index * 100,
+        withSequence(
+          withTiming(OFFSET, { duration: TIME }, () => {}),
+          withTiming(0, { duration: TIME }),
+        ),
+      );
+    });
+  };
+  useEffect(() => {
+    if (curRow === 0) return;
+
+    rows[curRow - 1].map((cell, cellIndex) => {
+      setCellColor(cell, curRow - 1, cellIndex);
+      setBorderColor(cell, curRow - 1, cellIndex);
+    });
+  }, [curRow]);
+
   return (
     <View style={[styles.container, { backgroundColor }]}>
       <SettingsModal ref={settingsModalRef} />
@@ -228,11 +272,11 @@ const Game = () => {
                 <Animated.View
                   style={[
                     styles.cell,
-                    {
-                      borderColor: getBorderColor(cell, rowIndex, cellIndex),
-                      backgroundColor: getCellColor(cell, rowIndex, cellIndex),
-                    },
-                    // tileStyles[rowIndex][cellIndex],
+                    // {
+                    //   borderColor: getBorderColor(cell, rowIndex, cellIndex),
+                    //   backgroundColor: getCellColor(cell, rowIndex, cellIndex),
+                    // },
+                    tileStyles[rowIndex][cellIndex],
                   ]}
                 >
                   <Animated.Text
