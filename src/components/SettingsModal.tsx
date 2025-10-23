@@ -1,23 +1,25 @@
 import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView, useBottomSheetModal } from '@gorhom/bottom-sheet';
 import React, { forwardRef, useCallback, useMemo } from 'react';
-import { StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
-import { useMMKVBoolean } from 'react-native-mmkv';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+// import { useMMKVBoolean } from 'react-native-mmkv';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors } from '../constants/Colors';
-import { storage } from '../utils/storage';
+// import { storage } from '../utils/storage';
 export type Ref = BottomSheetModal;
 
 // eslint-disable-next-line react/display-name
 const SettingsModal = forwardRef<Ref>((props, ref) => {
+  const { bottom } = useSafeAreaInsets();
   const snapPoints = useMemo(() => ['50%'], []);
   const { dismiss } = useBottomSheetModal();
-  const [dark, setDark] = useMMKVBoolean('dark-mode', storage);
-  const [hard, setHard] = useMMKVBoolean('hard-mode', storage);
-  const [contrast, setContrast] = useMMKVBoolean('contrast-mode', storage);
+  // const [dark, setDark] = useMMKVBoolean('dark-mode', storage);
+  // const [hard, setHard] = useMMKVBoolean('hard-mode', storage);
+  // const [contrast, setContrast] = useMMKVBoolean('contrast-mode', storage);
 
-  const toggleDark = () => setDark((prev) => !!!prev);
-  const toggleHard = () => setHard((prev) => !!!prev);
-  const toggleContrast = () => setContrast((prev) => !!!prev);
+  // const toggleDark = () => setDark((prev) => !!!prev);
+  // const toggleHard = () => setHard((prev) => !!!prev);
+  // const toggleContrast = () => setContrast((prev) => !!!prev);
 
   const renderBackdrop = useCallback(
     (props: any) => (
@@ -46,36 +48,36 @@ const SettingsModal = forwardRef<Ref>((props, ref) => {
               <Text style={styles.rowTextBig}>Hard Mode</Text>
               <Text style={styles.rowTextSmall}>Words are longer and harder</Text>
             </View>
-            <Switch
+            {/* <Switch
               onValueChange={toggleHard}
               value={hard}
               trackColor={{ true: '#000' }}
               ios_backgroundColor="#9a9a9a"
-            />
+            /> */}
           </View>
           <View style={styles.row}>
             <View style={styles.rowText}>
               <Text style={styles.rowTextBig}>Dark Mode</Text>
               <Text style={styles.rowTextSmall}>Change the app to dark mode</Text>
             </View>
-            <Switch
+            {/* <Switch
               onValueChange={toggleDark}
               value={dark}
               trackColor={{ true: '#000' }}
               ios_backgroundColor="#9a9a9a"
-            />
+            /> */}
           </View>
-          <View style={styles.row}>
+          <View style={[styles.row, { paddingBottom: bottom }]}>
             <View style={styles.rowText}>
               <Text style={styles.rowTextBig}>High Contrast Mode</Text>
               <Text style={styles.rowTextSmall}>Increase contrast for better visibility</Text>
             </View>
-            <Switch
+            {/* <Switch
               onValueChange={toggleContrast}
               value={contrast}
               trackColor={{ true: '#000' }}
               ios_backgroundColor="#9a9a9a"
-            />
+            /> */}
           </View>
         </View>
       </BottomSheetView>

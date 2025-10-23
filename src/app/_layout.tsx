@@ -11,13 +11,12 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import { Appearance, Platform, TouchableOpacity, useColorScheme } from 'react-native';
+import { TouchableOpacity, useColorScheme } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useMMKVBoolean } from 'react-native-mmkv';
 import Logo from '../../assets/images/nyt-logo.svg';
 import { Colors } from '../constants/Colors';
 import { tokenCache } from '../utils/cache';
-import { storage } from '../utils/storage';
+// import { storage } from '../utils/storage';
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
 if (!publishableKey) {
@@ -29,13 +28,13 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const router = useRouter();
-  const [dark] = useMMKVBoolean('dark-mode', storage);
+  // const [dark] = useMMKVBoolean('dark-mode', storage);
 
-  useEffect(() => {
-    if (Platform.OS !== 'web') {
-      Appearance.setColorScheme(dark ? 'dark' : 'light');
-    }
-  }, [dark]);
+  // useEffect(() => {
+  //   if (Platform.OS !== 'web') {
+  //     Appearance.setColorScheme(dark ? 'dark' : 'light');
+  //   }
+  // }, [dark]);
 
   const [fontsLoaded] = useFonts({
     FrankRuhlLibre_800ExtraBold,
